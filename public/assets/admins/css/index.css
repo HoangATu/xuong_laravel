@@ -1,0 +1,9 @@
+a {
+    text-decoration: none; /* Xóa gạch chân mặc định */
+    color: inherit; /* Giữ nguyên màu chữ */
+}
+
+a:focus, a:active {
+    text-decoration: underline; /* Hiển thị gạch chân */
+    text-decoration-color: black; /* Đặt màu gạch chân là màu đen */
+}
