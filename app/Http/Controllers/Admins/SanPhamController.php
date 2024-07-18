@@ -101,7 +101,16 @@ class SanPhamController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admins.sanphams.update');
+        $sanPham = SanPham::findOrFail($id);
+
+        if(!$sanPham){
+            return redirect()->route('sanphams.index')->width('error', 'Sản phẩm không tồn tại');
+        }
+
+        // sử dụng eloquen
+
+
+        return view('admins.sanphams.update', compact('sanPham'));
     }
 
     /**
@@ -109,7 +118,33 @@ class SanPhamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if($request->isMethod('PUT')){
+            $params = $request->except('_token', '_method');
+
+            $sanPham = SanPham::findOrFail($id);
+
+            // xử lý hình ảnh
+            if($request->hasFile('img_san_pham')){
+                // Nếu có đẩy hình ảnh thì sẽ xoá hình ảnh cũ và thêm hình ảnh mới
+            
+                if($sanPham->hinh_anh){
+                    // Nếu sản phẩm có ảnh cũ thì tiến hành xoá
+                    Storage::disk('public')->delete($sanPham->hinh_anh);
+                }
+
+                $params['hinh_anh'] = $request->file('img_san_pham')->store('uploads/sanpham', 'public');
+
+            }else{
+                // Nếu ko có hình ảnh thì lấy lại hình ảnh cũ
+
+                $params['hinh_anh'] = $sanPham->hinh_anh;
+                
+            }
+            
+            // CẬP NHẬT DỮ LIỆU
+            $sanPham->update($params);
+            return redirect()->route('sanpham.index')->with('success','Cập nhật phẩm thành công!');
+        }
     }
 
     /**

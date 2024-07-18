@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\ChucVu;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -16,11 +17,35 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
+     * 
      */
+
+    public function getList(){
+        $listTaiKhoan = DB::table('users')->orderByDesc('id')->get();
+        return $listTaiKhoan;
+    }
+
+    public function createProduct($datas){
+        DB::table('users')->insert($datas);
+    }
+
+    public function chucVus()
+    {
+        return $this->belongsTo(ChucVu::class);
+    }
+
+    protected $table = 'users';
     protected $fillable = [
-        'name',
+        'name', 
         'email',
         'password',
+        'anh_dai_dien',
+        'so_dien_thoai',
+        'dia_chi',
+        'trang_thai',
+        'gioi_tinh',
+        'chuc_vu_id',
+        'ngay_sinh',
     ];
 
     /**

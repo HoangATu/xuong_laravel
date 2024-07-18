@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KhachHangController;
+use App\Http\Controllers\Admins\ChucVuController;
 use App\Http\Controllers\Admins\DanhMucController;
 use App\Http\Controllers\Admins\SanPhamController;
 use App\Http\Controllers\Admins\BinhLuanController;
+use App\Http\Controllers\Admins\TaiKhoanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,3 +64,9 @@ Route::resource('/danhmuc', DanhMucController::class);
 
 Route::get('/binhluan/test', [BinhLuanController::class, 'test'])->name('binhluan.test');
 Route::resource('/binhluan', BinhLuanController::class);
+
+Route::get('/chucvu/test', [ChucVuController::class, 'test'])->name('chucvu.test');
+Route::resource('/chucvu', ChucVuController::class);
+
+Route::get('/taikhoan/test', [TaiKhoanController::class, 'test'])->name('taikhoan.test');
+Route::resource('/taikhoan', TaiKhoanController::class);

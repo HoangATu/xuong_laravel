@@ -37,5 +37,27 @@
               </li>
         </ul>
 
+        <ul class="nav nav-pills">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Trang chức vụ</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{route('chucvu.index')}}">Danh sách chức vụ</a></li>
+                <li><a class="dropdown-item" href="{{route('chucvu.create')}}">Thêm chức vụ</a></li>
+                <li><a class="dropdown-item" href="#">Cập nhật bình luận</a></li>
+              </ul>
+            </li>
+      </ul>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Trang tài khoản</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{route('taikhoan.index')}}">Danh sách tài khoản</a></li>
+              <li><a class="dropdown-item" href="{{route('taikhoan.create')}}">Thêm tài khoản</a></li>
+              <li><a class="dropdown-item" href="#">Cập nhật bình luận</a></li>
+            </ul>
+          </li>
+    </ul>
+
 
     </div>

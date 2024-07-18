@@ -40,6 +40,9 @@ class SanPham extends Model
         return $san_pham;
     }
 
+    
+
+
     // sử dụng eloquent
     protected $table = 'san_phams';
 

@@ -16,10 +16,10 @@
 @section('content')
 
 
-    <div class="d-flex justify-content-center container" style="margin-left: 50px;" >
+    <div class="d-flex justify-content-center container" style="margin-left: 50px; width:1000px" >
         <div id="description" class="tab-content active mt-4 container">
             <h1 class="d-flex justify-content-center">{{$title}}</h1>
-            <a href="{{ route('sanpham.create')}}"><button class="btn btn-success " >Thêm mới</button></a>
+            <a href="{{route('chucvu.create')}}"><button class="btn btn-success " >Thêm mới</button></a>
 
               {{-- HIỂN THỊ THÔNG BÁO --}}
               @if (session('success'))
@@ -34,34 +34,18 @@
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Mã Sản Phẩm</th>
-                  <th>Tên Sản Phẩm</th>
-                  <th>Ảnh Sản Phẩm</th>
-                  <th>Giá Phẩm</th>
-                  <th>Số Lượng</th>
-                  <th>Ngày Nhập</th>
-                  <th>Danh Mục</th>
-                  <th>Trạng thái</th>
+                  <th>Tên Chức Vụ</th>
                 </tr>
               </thead>
-              
-    
               <tbody>
-                @foreach ($listSanPham as $item)
+                @foreach ($listChucVu as $item)
                 <tr>
                     <td>{{$item->id}}</td>
-                    <td>{{$item->ma_san_pham}}</td>
-                    <td>{{$item->ten_san_pham}}</td>
+                    
+                    <td>{{$item->ten_chuc_vu}}</td>
+                   
                     <td>
-                      <img src="{{Storage::url($item->hinh_anh)}}" width="100px">
-                    </td>
-                    <td>{{$item->gia}}</td>
-                    <td>{{$item->so_luong}}</td>
-                    <td>{{$item->ngay_nhap}}</td>
-                    <td>{{$item->danh_muc_id == 1 ? 'Áo Thun' : 'Quần Jeeans'}}</td>
-                    <td>{{$item->trang_thai == 1 ? 'Hiển thị' : 'Ẩn' }}</td>
-                    <td>
-                      <a href="{{ route('sanpham.edit', $item->id)}}"><button class="btn btn-warning">Sửa</button></a>
+                      <button class="btn btn-warning">Sửa</button>
                       <button class="btn btn-danger">Xoá</button>
                     </td>
                   </tr>
