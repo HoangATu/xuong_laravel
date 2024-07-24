@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('so_dien_thoai', 20)->after('email'); // Using string for phone number
             $table->boolean('gioi_tinh')->default(0)->after('so_dien_thoai');
             $table->text('dia_chi')->after('gioi_tinh');
-            $table->unsignedBigInteger('chuc_vu_id')->after('dia_chi');
+            $table->unsignedBigInteger('chuc_vu_id')->default(1)->after('dia_chi');
             $table->boolean('trang_thai')->default(0)->after('chuc_vu_id');
             $table->foreign('chuc_vu_id')->references('id')->on('chuc_vu')->onDelete('cascade');
         });

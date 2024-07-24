@@ -46,7 +46,7 @@
                 <div class="mb-3 mt-3">
                 <label for="" class="form-label">Số điện thoại:</label>
                 <input type="number" class="form-control" name="so_dien_thoai">
-                </div>
+                </div> 
                 <div class="mb-3 mt-3">
                     <label for="" class="form-label">Địa chỉ:</label>
                     <input type="text" class="form-control" name="dia_chi">

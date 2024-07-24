@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SanPham extends Model
@@ -18,14 +19,14 @@ class SanPham extends Model
 
 
     // sử dụng Query Builder
-    public function getList() {
-        $listSanPham= DB::table('san_phams')->orderByDesc('id')->get();
-        return $listSanPham;
-    }
+    // public function getList() {
+    //     $listSanPham= DB::table('san_phams')->orderByDesc('id')->get();
+    //     return $listSanPham;
+    // }
 
-    public function createProduct($datas){
-        DB::table('san_phams')->insert($datas);
-    }
+    // public function createProduct($datas){
+    //     DB::table('san_phams')->insert($datas);
+    // }
 
     public function category()
     {
@@ -34,11 +35,21 @@ class SanPham extends Model
 
         
 
-    public function getDetailProduct($id) {
-        $san_pham = DB::table('san_phams')->where('id', $id)->first();
+    // public function getDetailProduct($id) {
+    //     $san_pham = DB::table('san_phams')->where('id', $id)->first();
 
-        return $san_pham;
-    }
+    //     return $san_pham;
+    // }
+
+    // public function updateProduct($id, $data){
+    //     DB::table('san_phams')->where('id', $id)->update($data);
+    // }
+
+    // public function deleteProduct($id){
+    //     DB::table('san_phams')->where('id', $id)->delete();
+    // }
+    
+    use SoftDeletes;
 
     
 

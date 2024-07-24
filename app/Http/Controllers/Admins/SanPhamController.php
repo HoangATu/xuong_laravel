@@ -28,14 +28,20 @@ class SanPhamController extends Controller
     // C2: SỬ DỤNG ELOQUENT
 
 
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
         // =>>> SỬ DỤNG CHO RAW VÀ QUERY BUILDER
         // láy dữ liệu ra
         // $listSanPham = $this->san_phams->getList();
-        $listSanPham = SanPham::orderBy('id')->get();
+        $listSanPham = SanPham::query()->when($search, function($query, $search){
+            return $query->where('ma_san_pham', 'like', "%{$search}%")
+                         ->orwhere('ten_san_pham', 'like', "%{$search}%");
+        })->orderBy('id')->paginate(5);
         $title = "Danh sách sản phẩm";
         return view('admins.sanphams.index', compact('title', 'listSanPham'));
+
+       
     }
 
     /**
@@ -53,8 +59,8 @@ class SanPhamController extends Controller
      */
     public function store(Request $request)
     {
-        // Kiểm tra dữ liệu
-        // dd($request->post());
+        // // Kiểm tra dữ liệu
+        // // dd($request->post());
         if($request->isMethod('POST')){
             // VÌ CÓ TRƯỜNG $TOKEN RO CSRF SINH RA NÊN TRƯỚC KHI GỬI DỮ LIỆU TA CẦN LOẠI BỎ TOKEN
             // CÁCH 1
@@ -86,6 +92,10 @@ class SanPhamController extends Controller
             // chuyển trang và hiển thị thông báo
             return redirect()->route('sanpham.index')->with('success','Thêm sản phẩm thành công!');
         }
+
+       
+
+       
     }
 
     /**
@@ -136,23 +146,33 @@ class SanPhamController extends Controller
 
             }else{
                 // Nếu ko có hình ảnh thì lấy lại hình ảnh cũ
-
-                $params['hinh_anh'] = $sanPham->hinh_anh;
-                
+                $params['hinh_anh'] = $sanPham->hinh_anh;       
             }
             
             // CẬP NHẬT DỮ LIỆU
             $sanPham->update($params);
             return redirect()->route('sanpham.index')->with('success','Cập nhật phẩm thành công!');
         }
+
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+
+        if($request->isMethod('DELETE')){
+            $sanPham = SanPham::findOrFail($id);
+            if($sanPham){
+                $sanPham->delete();
+                return redirect()->route('sanpham.index')->with('success', 'Xoá sản phẩm thành công!!');
+            }
+            return redirect()->route('sanpham.index')->with('error', 'Xoá sản phẩm không thành công!!');
+        }
+
+       
     }
 
     // Viết một phương thức mới
@@ -160,3 +180,4 @@ class SanPhamController extends Controller
         dd("đây là một hàm mới");
     }
 }
+ 

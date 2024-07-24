@@ -32,9 +32,9 @@ class User extends Authenticatable
     public function chucVus()
     {
         return $this->belongsTo(ChucVu::class);
-    }
+    } 
 
-    protected $table = 'users';
+    protected $table = 'users'; 
     protected $fillable = [
         'name', 
         'email',
@@ -65,5 +65,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 }

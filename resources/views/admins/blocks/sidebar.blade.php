@@ -1,63 +1,90 @@
-<div class="d-flex">
-    
-    <!-- 2. Bên trái: Menu điều hướng (nav) -->
-    <div class="bg-light border-end" style="width: 300px; min-height: calc(100vh - 66px);">
-        <!-- Lên w3school copy phần nav về -->
-        <ul class="nav nav-pills">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Trang sản phẩm</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{{route('sanpham.index')}}">Danh sách sản phẩm</a></li>
-                  <li><a class="dropdown-item" href="{{route('sanpham.create')}}">Thêm sản phẩm</a></li>
-                  <li><a class="dropdown-item" href="#">Cập nhật sản phẩm</a></li>
-                </ul>
+<!-- Left Sidebar Start -->
+<div class="app-sidebar-menu">
+  <div class="h-100" data-simplebar>
+
+      <!--- Sidemenu -->
+      <div id="sidebar-menu">
+
+          <div class="logo-box">
+              <a class='logo logo-light' href='index.html'>
+                  <span class="logo-sm">
+                      <img src="{{ asset('assets/admins/images/logo-sm.png') }}" alt="" height="22">
+                  </span>
+                  <span class="logo-lg">
+                      <img src="{{ asset('assets/admins/images/logo-light.png') }}" alt="" height="24">
+                  </span>
+              </a>
+              <a class='logo logo-dark' href='index.html'>
+                  <span class="logo-sm">
+                      <img src="{{ asset('assets/admins/images/logo-sm.png') }}" alt="" height="22">
+                  </span>
+                  <span class="logo-lg">
+                      <img src="{{ asset('assets/admins/images/logo-dark.png') }}" alt="" height="24">
+                  </span>
+              </a>
+          </div>
+
+          <ul id="side-menu">
+
+              <li class="menu-title">Quản trị</li>
+              <li>
+                  <a class='tp-link' href='/dashboard'>
+                  <i data-feather="home"></i>
+                      <span> Dashboard </span>
+                  </a>
               </li>
-        </ul>
-
-        <ul class="nav nav-pills">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Trang danh mục</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{{route('danhmuc.index')}}">Danh sách danh mục</a></li>
-                  <li><a class="dropdown-item" href="{{route('danhmuc.create')}}">Thêm danh mục</a></li>
-                  <li><a class="dropdown-item" href="#">Cập nhật danh mục</a></li>
-                </ul>
+              <li>
+                  <a class='tp-link' href='/taikhoan'>
+                  <i data-feather="users"></i>
+                      <span> Quản lý tài khoản </span>
+                  </a>
               </li>
-        </ul>
 
-
-        <ul class="nav nav-pills">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Trang bình luận</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{{route('binhluan.index')}}">Danh sách bình luận</a></li>
-                  <li><a class="dropdown-item" href="{{route('binhluan.create')}}">Thêm bình luận</a></li>
-                  <li><a class="dropdown-item" href="#">Cập nhật bình luận</a></li>
-                </ul>
-              </li>
-        </ul>
-
-        <ul class="nav nav-pills">
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Trang chức vụ</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{route('chucvu.index')}}">Danh sách chức vụ</a></li>
-                <li><a class="dropdown-item" href="{{route('chucvu.create')}}">Thêm chức vụ</a></li>
-                <li><a class="dropdown-item" href="#">Cập nhật bình luận</a></li>
-              </ul>
+              <li>
+                <a class='tp-link' href='/chucvu'>
+                <i data-feather="users"></i>
+                    <span> Chức vụ </span>
+                </a>
             </li>
-      </ul>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Trang tài khoản</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{{route('taikhoan.index')}}">Danh sách tài khoản</a></li>
-              <li><a class="dropdown-item" href="{{route('taikhoan.create')}}">Thêm tài khoản</a></li>
-              <li><a class="dropdown-item" href="#">Cập nhật bình luận</a></li>
-            </ul>
+              <li class="menu-title">Kinh doanh</li>
+              <li>
+                  <a class='tp-link' href='/danhmuc'>
+                  <i data-feather="align-center"></i>
+                      <span> Danh mục </span>
+                  </a>
+              </li>
+
+              <li>
+                  <a class='tp-link' href='/sanpham'>
+                  <i data-feather="package"></i>
+                      <span> Sản phẩm </span>
+                  </a>
+              </li>
+
+              <li>
+                <a class='tp-link' href='/binhluan'>
+                <i data-feather="package"></i>
+                    <span> Bình luận </span>
+                </a>
+            </li>
+
+            <li>
+              <a class='tp-link' href='/phuongthuc'>
+              <i data-feather="package"></i>
+                  <span> Phương thức thanh toán </span>
+              </a>
           </li>
-    </ul>
 
+             
 
-    </div>
+          </ul>
+
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="clearfix"></div>
+
+  </div>
+</div>
+<!-- Left Sidebar End -->
