@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\ChucVu;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -33,6 +34,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(ChucVu::class);
     } 
+
+    use SoftDeletes;
 
     protected $table = 'users'; 
     protected $fillable = [

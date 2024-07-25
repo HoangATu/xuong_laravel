@@ -16,7 +16,7 @@
 @section('content')
 
 
-    <div class="d-flex justify-content-center container" style="margin-left: 20px;" >
+    <div class="d-flex justify-content-center container" >
         <div id="description" class="tab-content active mt-4 container">
             <h1 class="d-flex justify-content-center">DANH SÁCH TÀI KHOẢN</h1>
            
@@ -65,9 +65,16 @@
                     <td>{{ $user->dia_chi }}</td>
                     <td>{{ $user->chuc_vu_id == 1 ? 'Người dùng' : 'Admin' }}</td>
                     <td>{{ $user->trang_thai == 0 ? 'Hoạt động' : 'Không hoạt động' }}</td>
-                   
+                    <td>
+                      <a href="{{ route('taikhoan.edit', $user->id) }}"><button class="btn btn-warning">Sửa</button></a>
+                      <form class="d-inline" action="{{ route('taikhoan.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Bạn có đỒng ý xoá không?')">
+                          @csrf
+                          @method('DELETE')
+                          <button class="btn btn-danger">Xoá</button>
+                      </form>
+                    </td>
                 </tr>
-            @endforeach
+            @endforeach 
               </tbody>
             </table>
           

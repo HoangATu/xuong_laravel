@@ -31,4 +31,15 @@ class ChucVuController extends Controller
         return redirect()->route('chucvu.index')->with('success','Thêm chức vụ  thành công!');
     }
    }
+
+   public function destroy(Request $request, String $id){
+    if($request->isMethod('DELETE')){
+        $chucVu = ChucVu::findOrFail($id);
+        if($chucVu){
+            $chucVu->delete();
+        }
+        return redirect()->route('chucvu.index')->with('success', 'Xoá người dùng thành công');
+    }
+    return redirect()->route('chucvu.index')->with('success', 'Xoá người dùng ko thành công');
+   }
 }

@@ -35,6 +35,7 @@
                 <tr>
                   <th>Id</th>
                   <th>Tên Chức Vụ</th>
+                  <th>Hoạt động</th>
                 </tr>
               </thead>
               <tbody>
@@ -45,8 +46,12 @@
                     <td>{{$item->ten_chuc_vu}}</td>
                    
                     <td>
-                      <button class="btn btn-warning">Sửa</button>
-                      <button class="btn btn-danger">Xoá</button>
+                      <a href="{{ route('chucvu.edit', $item->id) }}"><button class="btn btn-warning">Sửa</button></a>
+                      <form class="d-inline" action="{{ route('chucvu.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có đỒng ý xoá không?')">
+                          @csrf
+                          @method('DELETE')
+                          <button class="btn btn-danger">Xoá</button>
+                      </form>
                     </td>
                   </tr>
                 
