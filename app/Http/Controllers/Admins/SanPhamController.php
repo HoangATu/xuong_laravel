@@ -6,6 +6,7 @@ use App\Models\DanhMuc;
 use App\Models\SanPham;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class SanPhamController extends Controller
 {

@@ -1,7 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="en">
-
-
 <!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:03 GMT -->
 <head>
     <meta charset="utf-8">
@@ -36,10 +34,16 @@
 
 </head>
 <body>
-    @include('clients.blocks.header');
+    @include('clients.blocks.header')
 
-    @yield('content'); 
-    @yield('wishlist');
+    @yield('content') 
+    @yield('wishlist')
+    @yield('detail')
+    @yield('shop')
+    @yield('cart')
+    @yield('pay')
+    @yield('account')
+    @yield('login')
 
     @include('clients.blocks.footer')
     <script src="{{ asset ('assets/clients/js/vendor/modernizr-3.6.0.min.js')}}"></script>

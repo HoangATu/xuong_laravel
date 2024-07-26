@@ -91,4 +91,10 @@ Route::resource('/phuongthuc', PhuongThucController::class);
 
 
 Route::get('/index/wishlist', [TrangChuController::class, 'wishlist'])->name('index.wishlist');
+Route::get('/index/detail', [TrangChuController::class, 'detail'])->name('index.detail');
+Route::get('/index/shop', [TrangChuController::class, 'shop'])->name('index.shop');
+Route::get('/index/cart', [TrangChuController::class, 'cart'])->name('index.cart');
+Route::get('/index/pay', [TrangChuController::class, 'pay'])->name('index.pay');
+Route::get('/index/account', [TrangChuController::class, 'account'])->name('index.account');
+Route::get('/index/login', [TrangChuController::class, 'login'])->name('index.login');
 Route::resource('/index', TrangChuController::class);
