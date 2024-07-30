@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Clients;
 
+use App\Models\User;
 use App\Models\SanPham;
+use App\Models\BinhLuan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TrangChuController extends Controller
 {
@@ -28,33 +31,79 @@ class TrangChuController extends Controller
 
     public function shop()
     {
-        return view('clients.shop');
+        $listSanPham = SanPham::orderBy('id')->get();
+        return view('clients.shop', compact('listSanPham'));
     }
 
-    public function cart()
-    {
-        return view('clients.cart');
-    }
+    
+    
 
     public function account()
     {
         return view('clients.account');
     }
 
-    public function login()
+    public function showForm()
     {
-        return view('clients.login');
+        return view('clients.login'); 
     }
 
+    public function register(Request $request){ 
+        $request->merge(['chuc_vu_id' => $request->input('chuc_vu_id', 1)]);
+        $data = $request->validate([
+            'email' => 'required|string|email|max:255',
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+            'so_dien_thoai' => ['required', 'string', 'max:20', 'regex:/^[0-9]+$/'],
+            'dia_chi' => ['required', 'string'],
+            'chuc_vu_id' => ['required', 'integer', 'exists:chuc_vus,id'],
+        ]);
+
+        $user = User::query()->create($data);
+        Auth::login($user);
+        // return redirect()->intended('login');
+        
+    }
+
+    public function login(Request $request){
+        $user = $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string']
+        ]);
+
+        // dd($user); 
+
+        if(Auth::attempt($user)){
+            return redirect()->intended('/sanpham');
+        }
+
+        return redirect()->back()->withErrors([
+            'email' => 'Thông tin người dùng không đúng'
+        ]);
+    }
+
+    public function reviews(String $id)
+    {
+        $sanPham = SanPham::findOrFail($id);
+        $list = SanPham::all();
+        $reviews = BinhLuan::where('san_pham_id', $id)->get();
+
+        return view('clients.detail', compact('sanPham', 'reviews', 'list'));
+    
+    }
+
+ 
     public function pay()
     {
         return view('clients.pay');
     }
 
-    public function detail()
-    {
-        return view('clients.detail');
-    }
+    // public function detail(String $id)
+    // {
+    //     $sanPham = SanPham::findOrFail($id);
+    //     $list = SanPham::get();
+    //     return view('clients.detail', compact('sanPham', 'list'));
+    // }
 
     /**
      * Show the form for creating a new resource.

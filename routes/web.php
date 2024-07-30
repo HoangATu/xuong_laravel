@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\CheckAminMiddleware;
 use App\Http\Controllers\KhachHangController;
+use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Admins\ChucVuController;
+use App\Http\Controllers\Clients\OrderController;
 use App\Http\Controllers\Admins\DanhMucController;
 use App\Http\Controllers\Admins\SanPhamController;
 use App\Http\Controllers\Admins\BinhLuanController;
@@ -90,11 +92,18 @@ Route::resource('/taikhoan', TaiKhoanController::class);
 Route::resource('/phuongthuc', PhuongThucController::class);
 
 
+// Route::get('/index/detail/{id}', [BinhLuanController::class, 'index'])->name('sanpham.show');
 Route::get('/index/wishlist', [TrangChuController::class, 'wishlist'])->name('index.wishlist');
-Route::get('/index/detail', [TrangChuController::class, 'detail'])->name('index.detail');
+// Route::get('/index/detail/{id}', [TrangChuController::class, 'detail'])->name('index.detail');
+Route::get('/index/detail/{id}', [TrangChuController::class, 'reviews'])->name('index.reviews');
+Route::post('/index/detail/{id}', [BinhLuanController::class, 'store'])->name('reviews.store');
 Route::get('/index/shop', [TrangChuController::class, 'shop'])->name('index.shop');
-Route::get('/index/cart', [TrangChuController::class, 'cart'])->name('index.cart');
 Route::get('/index/pay', [TrangChuController::class, 'pay'])->name('index.pay');
 Route::get('/index/account', [TrangChuController::class, 'account'])->name('index.account');
-Route::get('/index/login', [TrangChuController::class, 'login'])->name('index.login');
-Route::resource('/index', TrangChuController::class);
+Route::resource('/index', TrangChuController::class)->middleware(['auth']);
+
+Route::get('list-cart', [CartController::class, 'listCart'])->name('cart.list');
+Route::post('add-to-cart', [CartController::class, 'addCart'])->name('cart.add');
+Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+
+Route::resource('/order', OrderController::class);

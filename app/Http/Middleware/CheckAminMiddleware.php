@@ -16,11 +16,17 @@ class CheckAminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->chuc_vu_id === 3){
-            return $next($request);
+        if (Auth::check()) {
+            if (Auth::user()->chuc_vu_id === 3) {
+                return $next($request);
+            } else {
+                // Redirect to user dashboard or any other appropriate route
+                return redirect('/index');
+            }
         }
-
-        abort(403);
+    
+        // If the user is not authenticated
+        return redirect('/login');
        
     }
 }

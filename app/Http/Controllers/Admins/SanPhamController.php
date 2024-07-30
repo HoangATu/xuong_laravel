@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Models\DanhMuc;
+use App\Models\HinhAnhSanPham;
 use App\Models\SanPham;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -50,9 +51,9 @@ class SanPhamController extends Controller
      */
     public function create()
     {
-        $categories = DanhMuc::all();
+        $category = DanhMuc::all();
         
-        return view('admins.sanphams.create', compact('categories'));
+        return view('admins.sanphams.create', compact('category'));
     }
 
     /**
@@ -60,19 +61,18 @@ class SanPhamController extends Controller
      */
     public function store(Request $request)
     {
-        // // Kiểm tra dữ liệu
-        // // dd($request->post());
+        
         if($request->isMethod('POST')){
-            // VÌ CÓ TRƯỜNG $TOKEN RO CSRF SINH RA NÊN TRƯỚC KHI GỬI DỮ LIỆU TA CẦN LOẠI BỎ TOKEN
-            // CÁCH 1
-
-            // LẤY RA DỮ LIỆU
-            // $params = $request->post();
-            // unset($params['_token']);
-
-            // CÁCH 2
+          
             
             $params = $request->except('_token');
+
+            // chuyển đổi checkbox thành boolean
+            $params['is_type'] = $request->has('is_type') ? 1 : 0 ;
+            $params['is_new'] = $request->has('is_new') ? 1 : 0 ;
+            $params['is_hot'] = $request->has('is_hot') ? 1 : 0 ;
+            $params['is_hot_deal'] = $request->has('is_hot_deal') ? 1 : 0 ;
+            $params['is_show_home'] = $request->has('is_show_home') ? 1 : 0 ;
 
             
             if ($request->hasFile('img_san_pham')) {
@@ -82,21 +82,21 @@ class SanPhamController extends Controller
             } 
 
             $params['hinh_anh'] = $filename;
-
-            // THÊM DỮ LIỆU
-            // sử dụng query builder
-            // $this->san_phams->createProduct($params);
-
-            // sử dụng eloquen
-            SanPham::create($params);
-
-            // chuyển trang và hiển thị thông báo
+            $sanPham = SanPham::create($params);
+            $sanPhamID = $sanPham->id;
+            if ($request->hasFile('list_hinh_anh')) {
+                foreach ($request->file('list_hinh_anh') as $image) {
+                    if ($image) {
+                        $path = $image->store('uploads/hinhanhsanpham/id_' . $sanPhamID, 'public');
+                        HinhAnhSanPham::create([
+                            'san_pham_id' => $sanPhamID,
+                            'hinh_anh' => $path,
+                        ]);
+                    }
+                }
+            }
             return redirect()->route('sanpham.index')->with('success','Thêm sản phẩm thành công!');
         }
-
-       
-
-       
     }
 
     /**
@@ -113,6 +113,7 @@ class SanPhamController extends Controller
     public function edit(string $id)
     {
         $sanPham = SanPham::findOrFail($id);
+        $category = DanhMuc::all();
 
         if(!$sanPham){
             return redirect()->route('sanphams.index')->width('error', 'Sản phẩm không tồn tại');
@@ -121,7 +122,7 @@ class SanPhamController extends Controller
         // sử dụng eloquen
 
 
-        return view('admins.sanphams.update', compact('sanPham'));
+        return view('admins.sanphams.update', compact('sanPham', 'category'));
     }
 
     /**
@@ -131,6 +132,13 @@ class SanPhamController extends Controller
     {
         if($request->isMethod('PUT')){
             $params = $request->except('_token', '_method');
+
+            $params['is_type'] = $request->has('is_type') ? 1 : 0 ;
+            $params['is_new'] = $request->has('is_new') ? 1 : 0 ;
+            $params['is_hot'] = $request->has('is_hot') ? 1 : 0 ;
+            $params['is_hot_deal'] = $request->has('is_hot_deal') ? 1 : 0 ;
+            $params['is_show_home'] = $request->has('is_show_home') ? 1 : 0 ;
+
 
             $sanPham = SanPham::findOrFail($id);
 
@@ -149,10 +157,46 @@ class SanPhamController extends Controller
                 // Nếu ko có hình ảnh thì lấy lại hình ảnh cũ
                 $params['hinh_anh'] = $sanPham->hinh_anh;       
             }
+
+            if($request->hasFile('list_hinh_anh')) {
+                $currentImages = $sanPham->hinhAnhSanPham->pluck('id')->toArray();
+                $arrayCombine = array_combine($currentImages, $currentImages);
+                
+                foreach ($arrayCombine as $key => $value) {
+                    if(!array_key_exists($key, $request->list_hinh_anh)) {
+                        $hinhAnhSanPham = HinhAnhSanPham::find($key);
+                        if($hinhAnhSanPham && Storage::disk('public')->exists($hinhAnhSanPham->hinh_anh)) {
+                            Storage::disk('public')->delete($hinhAnhSanPham->hinh_anh);
+                            $hinhAnhSanPham->delete();
+                        }
+                    }
+                }
+
+                foreach ($request->list_hinh_anh as $key=>$image){
+                    if(!array_key_exists($key, $arrayCombine)) {
+                        if($request->hasFile("list_hinh_anh.$key")) {
+                            $path = $image->store('uploads/hinhanhsanphham/id_' . $id,'public');
+                            HinhAnhSanPham::create([
+                                'san_pham_id' => $id,
+                                'hinh_anh' => $path,
+                            ]);
+                        }
+                    } else if(is_file($image) && $request->hasFile("list_hinh_anh.$key")) {
+                        $hinhAnhSanPham = HinhAnhSanPham::find($key);
+                        if($hinhAnhSanPham && Storage::disk('public')->exists($hinhAnhSanPham->hinh_anh)) {
+                            Storage::disk('public')->delete($hinhAnhSanPham->hinh_anh);
+                        }
+                            $path = $image->store('uploads/hinhanhsanphham/id_' . $id,'public');
+                            $hinhAnhSanPham->update([
+                                'hinh_anh' => $path,
+                            ]);
+                        }
+                    }
+            }
             
             // CẬP NHẬT DỮ LIỆU
             $sanPham->update($params);
-            return redirect()->route('sanpham.index')->with('success','Cập nhật phẩm thành công!');
+            return redirect()->route('sanpham.index')->with('success','Cập nhật san phẩm thành công!');
         }
 
         
@@ -166,14 +210,17 @@ class SanPhamController extends Controller
 
         if($request->isMethod('DELETE')){
             $sanPham = SanPham::findOrFail($id);
-            if($sanPham){
-                $sanPham->delete();
-                return redirect()->route('sanpham.index')->with('success', 'Xoá sản phẩm thành công!!');
+            if($sanPham->hinh_anh && Storage::disk('public')->exitsts($sanPham->hinh_anh)){
+                Storage::disk('public')->delete($sanPham->hinh_anh);
             }
-            return redirect()->route('sanpham.index')->with('error', 'Xoá sản phẩm không thành công!!');
-        }
-
-       
+            $sanPham->hinhAnhSanPham()->delete();
+            $path = 'uploads/hinhanhsanphham/id_' . $id;
+            if(Storage::disk('public')->exists($path)){
+                Storage::disk('public')->deleteDirectory($path);
+            }
+            $sanPham->delete();
+            return redirect()->route('sanpham.index')->with('success','Xoa san phẩm thành công!');
+        } 
     }
 
     // Viết một phương thức mới

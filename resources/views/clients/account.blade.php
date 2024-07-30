@@ -46,7 +46,13 @@
                                             address</a>
                                         <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Account
                                             Details</a>
-                                        <a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
+                                        <form action="{{route('logout')}}" method="POST">
+                                            @csrf
+                                            <a class='dropdown-item notify-item' >
+                                            <i class="mdi mdi-location-exit fs-16 align-middle"></i>
+                                            <button type="submit" class="btn"><span><i class="fa fa-sign-out"></i> Logout</span></button>
+                                            </a>
+                                        </form>
                                     </div>
                                 </div>
                                 <!-- My Account Tab Menu End -->
@@ -59,8 +65,7 @@
                                             <div class="myaccount-content">
                                                 <h5>Dashboard</h5>
                                                 <div class="welcome">
-                                                    <p>Hello, <strong>Erik Jhonson</strong> (If Not <strong>Jhonson
-                                                        !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+                                                    <p>Hello, <strong> {{Auth::user()->name}}</strong></p>
                                                 </div>
                                                 <p class="mb-0">From your account dashboard. you can easily check &
                                                     view your recent orders, manage your shipping and billing addresses

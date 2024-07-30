@@ -73,5 +73,7 @@
     <script src="{{ asset ('assets/clients/js/plugins/google-map.js')}}"></script>
     <!-- Main JS -->
     <script src="{{ asset ('assets/clients/js/main.js')}}"></script>
+
+    @yield('js')
 </body>
 </html>

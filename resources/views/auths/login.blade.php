@@ -10,7 +10,7 @@
                 <div class="fxt-transformY-50 fxt-transition-delay-1">
                     <input type="email" id="email" class="form-control" name="email" placeholder="Email" required="required" value="{{old('email')}}" autocomplete="email">
                 </div>
-                @error('email')
+                @error('email') 
                      <p class="text-danger">{{$message}}</p>
                 @enderror
             </div>

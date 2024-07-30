@@ -21,6 +21,7 @@
 
         <!-- Icons -->
         <link href="{{ asset ('assets/admins/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        @yield('css')
 
     </head>
 
@@ -57,6 +58,7 @@
         <!-- END wrapper -->
 
         <!-- Vendor -->
+        @yield('js')
         <script src="{{ asset ('assets/admins/libs/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset ('assets/admins/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset ('assets/admins/libs/simplebar/simplebar.min.js') }}"></script>

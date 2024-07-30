@@ -19,6 +19,9 @@ return new class extends Migration
             $table->date('ngay_dang');
             $table->tinyInteger('danh_gia')->unsigned();
             $table->timestamps();
+
+            $table->foreign('san_pham_id')->references('id')->on('san_phams')->onDelete('cascade');
+            $table->foreign('tai_khoan_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

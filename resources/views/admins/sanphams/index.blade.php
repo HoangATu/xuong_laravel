@@ -42,13 +42,14 @@
             <table class="table table-striped mt-3">
               <thead>
                 <tr>
-                  <th>Id</th>
+                  
                   <th>Mã Sản Phẩm</th>
                   <th>Tên Sản Phẩm</th>
                   <th>Ảnh Sản Phẩm</th>
                   <th>Giá Phẩm</th>
+                  <th>GiáKhuyến Mãi</th>
                   <th>Số Lượng</th>
-                  <th>Ngày Nhập</th>
+                  
                   <th>Danh Mục</th>
                   <th>Trạng thái</th>
                   <th>Hoạt động</th>
@@ -59,15 +60,16 @@
               <tbody>
                 @foreach ($listSanPham as $item)
                 <tr>
-                    <td>{{$item->id}}</td>
+                    
                     <td>{{$item->ma_san_pham}}</td>
                     <td>{{$item->ten_san_pham}}</td>
                     <td>
                       <img src="{{Storage::url($item->hinh_anh)}}" width="100px">
                     </td>
                     <td>{{number_format($item->gia)}}</td>
+                    <td>{{empty($item->gia_khuyen_mai) ? 0 : $item->gia_khuyen_mai}}</td>
                     <td>{{$item->so_luong}}</td>
-                    <td>{{$item->ngay_nhap}}</td>
+                    
                     <td>{{$item->danh_muc_id == 1 ? 'Áo Thun' : 'Quần Jeeans'}}</td>
                     <td>{{$item->trang_thai == 1 ? 'Hiển thị' : 'Ẩn' }}</td>
                     <td>

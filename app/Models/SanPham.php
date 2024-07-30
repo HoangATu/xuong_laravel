@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\DanhMuc;
+use App\Models\HinhAnhSanPham;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,24 +32,14 @@ class SanPham extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(DanhMuc::class);
     }
 
         
 
-    // public function getDetailProduct($id) {
-    //     $san_pham = DB::table('san_phams')->where('id', $id)->first();
-
-    //     return $san_pham;
-    // }
-
-    // public function updateProduct($id, $data){
-    //     DB::table('san_phams')->where('id', $id)->update($data);
-    // }
-
-    // public function deleteProduct($id){
-    //     DB::table('san_phams')->where('id', $id)->delete();
-    // }
+    public function hinhAnhSanPham(){
+        return $this->hasMany(HinhAnhSanPham::class);
+    }
     
     use SoftDeletes;
 
@@ -67,5 +59,21 @@ class SanPham extends Model
         'danh_muc_id',
         'mo_ta',
         'trang_thai',
+        'gia_khuyen_mai',
+        'mo_ta_ngan',
+        'luot_xem',
+        'is_type',
+        'is_new',
+        'is_hot',
+        'is_hot_deal',
+        'is_show_home',
+    ];
+
+    protected $casts = [
+        'is_type'=> 'boolean',
+        'is_new'=> 'boolean',
+        'is_hot'=> 'boolean',
+        'is_hot_deal'=> 'boolean',
+        'is_show_home'=> 'boolean',
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\SanPham;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,6 @@ class DanhMuc extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(SanPham::class);
     }
 }

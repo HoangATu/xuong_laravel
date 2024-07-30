@@ -50,7 +50,7 @@
                                 <div class="hero-slider-content slide-3">
                                     <h2 class="slide-title">Grace Designer<span>Jewelry</span></h2>
                                     <h4 class="slide-desc">Rings, Occasion Pieces, Pandora & More.</h4>
-                                    <a href="shop.html" class="btn btn-hero">Read More</a>
+                                    <a href="{{route('index.shop')}}" class="btn btn-hero">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -562,7 +562,7 @@
                         @foreach ($listSanPham as $item)
                         <div class="product-item">
                             <figure class="product-thumb">
-                                <a href="{{route('index.detail')}}">
+                                <a href="{{route('index.reviews', $item->id)}}">
                                     <img class="pri-img" src="{{Storage::url($item->hinh_anh)}}" alt="product">
                                     <img class="sec-img" src="{{Storage::url($item->hinh_anh)}}" alt="product">
                                 </a>
