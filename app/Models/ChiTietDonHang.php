@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+ 
 use App\Models\DonHang;
 use App\Models\SanPham;
 use Illuminate\Database\Eloquent\Model;

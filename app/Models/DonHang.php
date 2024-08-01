@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\ChiTietDonHang;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+ 
 class DonHang extends Model
 {
     use HasFactory;

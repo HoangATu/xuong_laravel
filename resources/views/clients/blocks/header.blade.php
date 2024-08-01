@@ -52,6 +52,7 @@
                                             </a>
                                             <ul class="dropdown-list">
                                                 <li><a href="{{ route('index.account') }}">My Account</a></li>
+                                                <li><a href="{{ route('order.index') }}">My Order</a></li>
                                                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     @csrf
