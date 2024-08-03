@@ -223,7 +223,7 @@
                                    
                                     <div class="product-item">
                                         <figure class="product-thumb">
-                                            <a href="product-details.html">
+                                            <a href="{{route('index.reviews', $item->id)}}">
                                                 <img class="pri-img" src="{{ Storage::url($item->hinh_anh)}}" alt="product">
                                                 <img class="sec-img" src="{{ Storage::url($item->hinh_anh)}}" alt="product">
                                             </a>
@@ -240,13 +240,19 @@
                                                 <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
                                             </div>
-                                            <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
-                                            </div>
+                                            <form action="{{route('cart.add')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="product_id" value="{{$item->id}}}">
+                                                
+                                                <div class="cart-hover">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </div>
+                                            </form>
                                         </figure>
                                         <div class="product-caption text-center">
-                                            <div class="product-identity">
-                                                <p class="manufacturer-name"><a href="product-details.html">Gold</a></p>
+                                            <div class="product-identity"> 
+                                                <p class="manufacturer-name"><a href="product-details.html"></a></p>
                                             </div>
                                             <ul class="color-categories">
                                                 <li>
@@ -263,14 +269,14 @@
                                                 </li>
                                             </ul>
                                             <h6 class="product-name">
-                                                <a href="product-details.html">Perfect Diamond Jewelry</a>
+                                                <a href="{{route('index.reviews', $item->id)}}">{{$item->ten_san_pham}}</a>
                                             </h6>
                                             <div class="price-box">
-                                                <span class="price-regular">$60.00</span>
-                                                <span class="price-old"><del>$70.00</del></span>
+                                                <span class="price-regular">{{number_format ($item->gia_khuyen_mai,  0, '', '.')}} đ</span>
+                                                <span class="price-old"><del>{{number_format ($item->gia,  0, '', '.')}} đ</del></span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> 
 
                                     @endforeach
                                     
@@ -301,9 +307,15 @@
                                                 <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
                                             </div>
-                                            <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
-                                            </div>
+                                            <form action="{{route('cart.add')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="product_id" value="{{$item->id}}}">
+                                                
+                                                <div class="cart-hover">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </div>
+                                            </form>
                                         </figure>
                                         <div class="product-caption text-center">
                                             <div class="product-identity">
@@ -324,11 +336,11 @@
                                                 </li>
                                             </ul>
                                             <h6 class="product-name">
-                                                <a href="product-details.html">Perfect Diamond Jewelry</a>
+                                                <a href="{{route('index.reviews', $item->id)}}">{{$item->ten_san_pham}}</a>
                                             </h6>
                                             <div class="price-box">
-                                                <span class="price-regular">$60.00</span>
-                                                <span class="price-old"><del>$70.00</del></span>
+                                                <span class="price-regular">{{number_format ($item->gia_khuyen_mai,  0, '', '.')}} đ</span>
+                                                <span class="price-old"><del>{{number_format ($item->gia,  0, '', '.')}} đ</del></span>
                                             </div>
                                         </div>
                                     </div>
@@ -362,9 +374,15 @@
                                                 <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
                                             </div>
-                                            <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
-                                            </div>
+                                            <form action="{{route('cart.add')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="product_id" value="{{$item->id}}}">
+                                                
+                                                <div class="cart-hover">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </div>
+                                            </form>
                                         </figure>
                                         <div class="product-caption text-center">
                                             <div class="product-identity">
@@ -385,11 +403,11 @@
                                                 </li>
                                             </ul>
                                             <h6 class="product-name">
-                                                <a href="product-details.html">Perfect Diamond Jewelry</a>
+                                                <a href="{{route('index.reviews', $item->id)}}">{{$item->ten_san_pham}}</a>
                                             </h6>
                                             <div class="price-box">
-                                                <span class="price-regular">$60.00</span>
-                                                <span class="price-old"><del>$70.00</del></span>
+                                                <span class="price-regular">{{number_format ($item->gia_khuyen_mai,  0, '', '.')}} đ</span>
+                                                <span class="price-old"><del>{{number_format ($item->gia,  0, '', '.')}} đ</del></span>
                                             </div>
                                         </div>
                                     </div>
@@ -423,9 +441,15 @@
                                                 <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
                                             </div>
-                                            <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
-                                            </div>
+                                            <form action="{{route('cart.add')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="product_id" value="{{$item->id}}}">
+                                                
+                                                <div class="cart-hover">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </div>
+                                            </form>
                                         </figure>
                                         <div class="product-caption text-center">
                                             <div class="product-identity">
@@ -446,11 +470,11 @@
                                                 </li>
                                             </ul>
                                             <h6 class="product-name">
-                                                <a href="product-details.html">Perfect Diamond Jewelry</a>
+                                                <a href="{{route('index.reviews', $item->id)}}">{{$item->ten_san_pham}}</a>
                                             </h6>
                                             <div class="price-box">
-                                                <span class="price-regular">$60.00</span>
-                                                <span class="price-old"><del>$70.00</del></span>
+                                                <span class="price-regular">{{number_format ($item->gia_khuyen_mai,  0, '', '.')}} đ</span>
+                                                <span class="price-old"><del>{{number_format ($item->gia,  0, '', '.')}} đ</del></span>
                                             </div>
                                         </div>
                                     </div>
@@ -579,10 +603,16 @@
                                     <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
                                 </div>
-                                <div class="cart-hover">
-                                    <button class="btn btn-cart">add to cart</button>
-                                </div>
-                            </figure>
+                                <form action="{{route('cart.add')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="product_id" value="{{$item->id}}}">
+                                    
+                                    <div class="cart-hover">
+                                        <button class="btn btn-cart">add to cart</button>
+                                    </div>
+                                </form>
+                            </figure> 
                             <div class="product-caption text-center">
                                 <div class="product-identity">
                                     <p class="manufacturer-name"><a href="product-details.html">Gold</a></p>
@@ -602,11 +632,11 @@
                                     </li>
                                 </ul>
                                 <h6 class="product-name">
-                                    <a href="product-details.html">Perfect Diamond Jewelry</a>
+                                    <a href="{{route('index.reviews', $item->id)}}">{{$item->ten_san_pham}}</a>
                                 </h6>
                                 <div class="price-box">
-                                    <span class="price-regular">$60.00</span>
-                                    <span class="price-old"><del>$70.00</del></span>
+                                    <span class="price-regular">{{number_format ($item->gia_khuyen_mai,  0, '', '.')}} đ</span>
+                                    <span class="price-old"><del>{{number_format ($item->gia,  0, '', '.')}} đ</del></span>
                                 </div>
                             </div>
                         </div>

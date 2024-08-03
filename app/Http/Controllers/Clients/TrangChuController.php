@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Models\User;
+use App\Models\DanhMuc;
+use App\Models\DonHang;
 use App\Models\SanPham;
 use App\Models\BinhLuan;
 use Illuminate\Http\Request;
@@ -20,6 +22,7 @@ class TrangChuController extends Controller
     }
     public function index()
     {
+       
         $listSanPham = SanPham::orderBy('id')->get();
         return view('clients.index', compact('listSanPham'));
     }
@@ -29,18 +32,31 @@ class TrangChuController extends Controller
         return view('clients.wishlist');
     }
 
-    public function shop()
+    public function shop(Request $request) 
     {
-        $listSanPham = SanPham::orderBy('id')->get();
-        return view('clients.shop', compact('listSanPham'));
-    }
+        $search = $request->input('search');
+        $listSanPham = SanPham::when($search, function($query, $search){
+            return $query->where('ma_san_pham', 'like', "%{$search}%")
+                         ->orwhere('ten_san_pham', 'like', "%{$search}%");
+        })->orderBy('id')->paginate(9);
+        $listDanhMuc = DanhMuc::withCount('products')->get();
+        return view('clients.shop', compact('listSanPham', 'listDanhMuc'));
+    } 
 
-    
+    public function shopByCategory($category_id)
+    {
+        $listSanPham = SanPham::where('danh_muc_id', $category_id)->orderBy('id')->paginate(5);
+        $listDanhMuc = DanhMuc::withCount('products')->get();
+        $currentCategory = DanhMuc::find($category_id);
+        return view('clients.shopcategory', compact('listSanPham', 'listDanhMuc', 'currentCategory'));
+    }
     
 
     public function account()
     {
-        return view('clients.account');
+        $donHangs = Auth::user()->donHang;
+        $trangThaiDonHang = DonHang::TRANG_THAI_DON_HANG;
+        return view('clients.account', compact('donHangs', 'trangThaiDonHang'));
     }
 
     public function showForm()
@@ -84,11 +100,13 @@ class TrangChuController extends Controller
 
     public function reviews(String $id)
     {
+        $review = BinhLuan::where('san_pham_id', $id)->first();
         $sanPham = SanPham::findOrFail($id);
+        $sanPham->increment('luot_xem');
         $list = SanPham::all();
         $reviews = BinhLuan::where('san_pham_id', $id)->get();
 
-        return view('clients.detail', compact('sanPham', 'reviews', 'list'));
+        return view('clients.detail', compact('sanPham', 'reviews', 'list', 'review'));
     
     }
 
@@ -126,7 +144,11 @@ class TrangChuController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
+    // Lấy đánh giá dựa trên sản phẩm ID
+
+   
+      
     }
 
     /**
@@ -134,7 +156,7 @@ class TrangChuController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -142,7 +164,21 @@ class TrangChuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if($request->isMethod('PUT')){
+            $params = $request->except('_token', '_method');
+            $taiKhoan = User::findOrFail($id);
+            if($request->hasFile('img_nguoi_dung')){ 
+                if($taiKhoan->anh_dai_dien){
+                Storage::disk('public')->delete($taiKhoan->anh_dai_dien);
+                }
+                $params['anh_dai_dien'] = $request->file('img_nguoi_dung')->store('uploads/taikhoan', 'public');
+            }else{
+                $params['anh_dai_dien'] = $taiKhoan->anh_dai_dien;
+            }
+            $taiKhoan->update($params);
+            return redirect()->route('index.account')->with('success', 'Cập nhật người dùng mới thành công!');
+    
+        }
     }
 
     /**

@@ -149,7 +149,7 @@
                                     </div>
                                 </div>
                                
-                                <div class="summary-footer-area">
+                                <div class="summary-footer-area">  
                                     
                                     <button type="submit" class="btn btn-sqr">Place Order</button>
                                 </div>

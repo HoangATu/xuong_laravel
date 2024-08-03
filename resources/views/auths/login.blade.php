@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group"> 
                 <div class="fxt-transformY-50 fxt-transition-delay-4">
                     <button type="submit" class="fxt-btn-fill">Log in</button>
                 </div>

@@ -40,4 +40,6 @@ class BinhLuanController extends Controller
         return redirect()->back()->with('success', 'Review submitted successfully!');
     
     }
+
+    
 }

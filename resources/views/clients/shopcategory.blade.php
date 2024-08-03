@@ -35,7 +35,7 @@
                                 <ul class="shop-categories">
                                     @foreach ($listDanhMuc as $item)
                                     <li>
-                                        <a href="{{route('index.shopByCategory', $item->id)}}">{{$item->ten_danh_muc}}<span> ({{ $item->products_count }})</span></a>
+                                        <a href="{{route('index.shopByCategory', $item->id)}}">{{$item->ten_danh_muc}}<span>({{ $item->products_count }})</span></a>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -144,37 +144,7 @@
                         <!-- single sidebar end -->
 
                         <!-- single sidebar start -->
-                        <div class="sidebar-single">
-                            <h5 class="sidebar-title">size</h5>
-                            <div class="sidebar-body">
-                                <ul class="checkbox-container categories-list">
-                                    <li>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck111">
-                                            <label class="custom-control-label" for="customCheck111">S (4)</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck222">
-                                            <label class="custom-control-label" for="customCheck222">M (5)</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck333">
-                                            <label class="custom-control-label" for="customCheck333">L (7)</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck444">
-                                            <label class="custom-control-label" for="customCheck444">XL (3)</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                       
                         <!-- single sidebar end -->
 
                         <!-- single sidebar start -->
@@ -203,7 +173,7 @@
                                             <a href="#" data-target="list-view" data-bs-toggle="tooltip" title="List View"><i class="fa fa-list"></i></a>
                                         </div>
                                         <div class="product-amount">
-                                            <p>Showing 1–16 of 21 results</p>
+                                            <p>Showing {{ $listSanPham->count() }} products in {{ $currentCategory->ten_danh_muc }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -375,90 +345,6 @@
         </div>
     </div>
     <!-- page main wrapper end -->
-    <section class="related-products section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- section title start -->
-                    <div class="section-title text-center">
-                        <h2 class="title">Related Products</h2>
-                        <p class="sub-title">Add related products to weekly lineup</p>
-                    </div>
-                    <!-- section title start -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="product-carousel-4 slick-row-10 slick-arrow-style">
-                        <!-- product item start -->
-                        @foreach ($listSanPham as $item)
-                        <div class="product-item">
-                            <figure class="product-thumb">
-                                <a href="{{route('index.reviews', $item->id)}}">
-                                    <img class="pri-img" src="{{ Storage::url($item->hinh_anh) }}" alt="product">
-                                    <img class="sec-img" src="{{ Storage::url($item->hinh_anh) }}" alt="product">
-                                </a>
-                                <div class="product-badge">
-                                    <div class="product-label new">
-                                        <span>new</span>
-                                    </div>
-                                    <div class="product-label discount">
-                                        <span>10%</span>
-                                    </div>
-                                </div>
-                                <div class="button-group">
-                                    <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                    <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                </div>
-                                <form action="{{route('cart.add')}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="quantity" value="1">
-                                    <input type="hidden" name="product_id" value="{{$item->id}}}">
-                                    
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                </form>
-                            </figure>
-                            <div class="product-caption text-center">
-                                <div class="product-identity">
-                                    <p class="manufacturer-name"><a href="product-details.html"></a></p>
-                                </div>
-                                <ul class="color-categories">
-                                    <li>
-                                        <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                    </li>
-                                    <li>
-                                        <a class="c-darktan" href="#" title="Darktan"></a>
-                                    </li>
-                                    <li>
-                                        <a class="c-grey" href="#" title="Grey"></a>
-                                    </li>
-                                    <li>
-                                        <a class="c-brown" href="#" title="Brown"></a>
-                                    </li>
-                                </ul>
-                                <h6 class="product-name">
-                                    <a href="{{route('index.reviews', $item->id)}}">{{$item->ten_san_pham}}</a>
-                                </h6>
-                                <div class="price-box">
-                                    <span class="price-regular">{{number_format ($item->gia_khuyen_mai, 0, '', '.')}} đ</span>
-                                    <span class="price-old"><del>{{number_format ($item->gia, 0, '', '.')}} đ</del></span>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                       
-                        <!-- product item end -->
-
-                        
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 </main>
 @endsection
 

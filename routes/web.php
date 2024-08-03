@@ -9,7 +9,9 @@ use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Admins\ChucVuController;
 use App\Http\Controllers\Clients\OrderController;
 use App\Http\Controllers\Admins\DanhMucController;
+use App\Http\Controllers\Admins\DonHangController;
 use App\Http\Controllers\Admins\SanPhamController;
+use App\Http\Controllers\Admins\ThongKeController;
 use App\Http\Controllers\Admins\BinhLuanController;
 use App\Http\Controllers\Admins\TaiKhoanController;
 use App\Http\Controllers\Clients\TrangChuController;
@@ -74,10 +76,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ROUTE RESORUCE
 // Route::get('/sanpham/test', [SanPhamController::class, 'test'])->name('sanpham.test');
-Route::resource('/sanpham', SanPhamController::class)->middleware(['auth', 'auth.admin']);
+Route::delete('/binh-luan/{id}', [SanPhamController::class, 'destroyComment'])->name('sanpham.destroyComment');
+Route::resource('/sanpham', SanPhamController::class)->middleware(['auth']);
 
 // Route::get('/danhmuc/test', [DanhMucController::class, 'test'])->name('danhmuc.test');
 Route::resource('/danhmuc', DanhMucController::class);
+Route::resource('/thongke', ThongKeController::class);
 
 // Route::get('/binhluan/test', [BinhLuanController::class, 'test'])->name('binhluan.test');
 Route::resource('/binhluan', BinhLuanController::class);
@@ -85,7 +89,6 @@ Route::resource('/binhluan', BinhLuanController::class);
 // Route::get('/chucvu/test', [ChucVuController::class, 'test'])->name('chucvu.test');
 Route::resource('/chucvu', ChucVuController::class);
 
-// Route::get('/taikhoan/test', [TaiKhoanController::class, 'test'])->name('taikhoan.test');
 Route::resource('/taikhoan', TaiKhoanController::class);
 
 // Route::get('/phuongthuc/test', [PhuongThucController::class, 'test'])->name('phuongthuc.test');
@@ -94,10 +97,12 @@ Route::resource('/phuongthuc', PhuongThucController::class);
 
 // Route::get('/index/detail/{id}', [BinhLuanController::class, 'index'])->name('sanpham.show');
 Route::get('/index/wishlist', [TrangChuController::class, 'wishlist'])->name('index.wishlist');
+Route::get('/index/login', [TrangChuController::class, 'showForm'])->name('index.login');
 // Route::get('/index/detail/{id}', [TrangChuController::class, 'detail'])->name('index.detail');
 Route::get('/index/detail/{id}', [TrangChuController::class, 'reviews'])->name('index.reviews');
 Route::post('/index/detail/{id}', [BinhLuanController::class, 'store'])->name('reviews.store');
 Route::get('/index/shop', [TrangChuController::class, 'shop'])->name('index.shop');
+Route::get('/index/shop/{category_id}', [TrangChuController::class, 'shopByCategory'])->name('index.shopByCategory');
 Route::get('/index/pay', [TrangChuController::class, 'pay'])->name('index.pay');
 Route::get('/index/account', [TrangChuController::class, 'account'])->name('index.account');
 Route::resource('/index', TrangChuController::class)->middleware(['auth']);
@@ -107,3 +112,4 @@ Route::post('add-to-cart', [CartController::class, 'addCart'])->name('cart.add')
 Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 
 Route::resource('/order', OrderController::class);
+Route::resource('/donhang', DonHangController::class);

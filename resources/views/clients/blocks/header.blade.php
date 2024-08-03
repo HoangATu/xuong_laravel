@@ -38,9 +38,9 @@
                         <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
                             <div class="header-search-container">
                                 <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
-                                <form class="header-search-box d-lg-none d-xl-block">
-                                    <input type="text" placeholder="Search entire store here" class="header-search-field">
-                                    <button class="header-search-btn"><i class="pe-7s-search"></i></button>
+                                <form class="header-search-box d-lg-none d-xl-block" action="{{route('index.shop')}}" method="GET">
+                                    <input type="text" placeholder="Search entire store here" name="search" class="header-search-field" value="{{request('search')}}">
+                                    <button type="submit" class="header-search-btn"><i class="pe-7s-search"></i></button>
                                 </form>
                             </div>
                             <div class="header-configure-area">
@@ -65,7 +65,7 @@
                                                 <i class="pe-7s-user"></i>
                                             </a>
                                             <ul class="dropdown-list">
-                                                <li><a href="{{ route('login') }}">Login</a></li>
+                                                <li><a href="{{ route('index.login') }}">Login</a></li>
                                                 <li><a href="{{ route('register') }}">Register</a></li>
                                             </ul>
                                         </li>

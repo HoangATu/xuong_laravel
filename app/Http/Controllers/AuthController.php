@@ -15,16 +15,22 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
-        $user = $request->validate([
+        $credentials = $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string']
         ]);
 
         // dd($user); 
 
-        if(Auth::attempt($user)){
-            return redirect()->intended('/sanpham');
+        if(Auth::attempt($credentials)){
+            $user = Auth::user();
+            if ($user->chuc_vu_id === 3) {
+                return redirect()->intended('/sanpham'); // Trang admin
+            } else {
+                return redirect()->intended('/index'); // Trang clients
+            }
         }
+    
 
         return redirect()->back()->withErrors([
             'email' => 'Thông tin người dùng không đúng'

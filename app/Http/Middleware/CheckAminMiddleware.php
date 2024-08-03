@@ -22,7 +22,7 @@ class CheckAminMiddleware
             } else {
                 // Redirect to user dashboard or any other appropriate route
                 return redirect('/index');
-            }
+            } 
         }
     
         // If the user is not authenticated

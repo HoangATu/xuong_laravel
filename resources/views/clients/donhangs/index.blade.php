@@ -46,7 +46,7 @@
                                         <th class="pro-price">Trạng thái</th>
                                         <th class="pro-quantity">Tổng tiền</th>
                                         <th class="pro-subtotal">Hành động</th>
-                                    </tr>
+                                    </tr> 
                                 </thead>
                                 <tbody>
                                     @foreach ($donHangs as $item)
@@ -80,12 +80,12 @@
                             </table>
                         </div>
                         <!-- Cart Update Option -->
-                        <div class="cart-update-option d-block d-md-flex justify-content-end">
+                        {{-- <div class="cart-update-option d-block d-md-flex justify-content-end">
                             
                             <div class="cart-update">
                                <button type="submit" class="btn btn-sqr">Update Cart</button>
                             </div>
-                        </div>
+                        </div> --}}
                     </form>
                     </div>
                 </div>

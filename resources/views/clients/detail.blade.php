@@ -65,11 +65,20 @@
                                     </div>
                                     <h3 class="product-name">{{$sanPham->ten_san_pham}}</h3>
                                     <div class="ratings d-flex">
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
-                                        <span><i class="fa fa-star-o"></i></span>
+                                        @if ($review && $review->danh_gia >= 0)
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <span>
+                                                    <i class="fa {{ $i <= $review->danh_gia ? 'fa-star' : 'fa-star-o' }}"></i>
+                                                </span>
+                                            @endfor
+                                        @else
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <span>
+                                                    <i class="fa fa-star-o"></i> <!-- Hiển thị ngôi sao trống khi không có đánh giá -->
+                                                </span>
+                                            @endfor
+                                        @endif
+                                    
                                         <div class="pro-review">
                                             <span>{{$sanPham->luot_xem}}</span>
                                         </div>
@@ -153,7 +162,7 @@
                                             <a data-bs-toggle="tab" href="#tab_two">information</a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="tab" href="#tab_three">reviews (1)</a>
+                                            <a data-bs-toggle="tab" href="#tab_three">reviews ({{$reviews->count()}})</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content reviews-tab">
@@ -257,7 +266,7 @@
     <!-- page main wrapper end -->
 
     <!-- related products area start -->
-    {{-- <section class="related-products section-padding">
+    <section class="related-products section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -276,7 +285,7 @@
                         @foreach ($list as $item)
                         <div class="product-item">
                             <figure class="product-thumb">
-                                <a href="product-details.html">
+                                <a href="{{route('index.reviews', $item->id)}}">
                                     <img class="pri-img" src="{{ Storage::url($item->hinh_anh) }}" alt="product">
                                     <img class="sec-img" src="{{ Storage::url($item->hinh_anh) }}" alt="product">
                                 </a>
@@ -322,7 +331,7 @@
                                     </li>
                                 </ul>
                                 <h6 class="product-name">
-                                    <a href="product-details.html">{{$item->ten_san_pham}}</a>
+                                    <a href="{{route('index.reviews', $item->id)}}">{{$item->ten_san_pham}}</a>
                                 </h6>
                                 <div class="price-box">
                                     <span class="price-regular">{{number_format ($sanPham->gia_khuyen_mai, 0, '', '.')}} đ</span>
@@ -340,7 +349,7 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
     <!-- related products area end -->
 </main> 
 @endsection

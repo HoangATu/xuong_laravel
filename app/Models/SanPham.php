@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\DanhMuc;
+use App\Models\BinhLuan;
 use App\Models\HinhAnhSanPham;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +30,11 @@ class SanPham extends Model
     // public function createProduct($datas){
     //     DB::table('san_phams')->insert($datas);
     // }
+
+    public function binhLuans()
+    {
+        return $this->hasMany(BinhLuan::class);
+    }
 
     public function category()
     {

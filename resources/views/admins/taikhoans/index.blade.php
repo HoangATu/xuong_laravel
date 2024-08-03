@@ -42,12 +42,13 @@
                     <th>Tên</th>
                     <th>Ảnh đại diện</th>
                     <th>Email</th>
-                    <th>Ngày sinh</th>
+                   
                     <th>Số điện thoại</th>
                     <th>Giới tính</th>
                     <th>Địa chỉ</th>
                     <th>Chức vụ</th>
                     <th>Trạng thái</th>
+                    <th>Hoạt động</th>
                 </tr>
               </thead>
               
@@ -59,7 +60,7 @@
                     <td>{{ $user->name }}</td>
                     <td><img src="{{ Storage::url($user->anh_dai_dien) }}" alt="Ảnh đại diện" width="100px"></td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->ngay_sinh }}</td>
+                   
                     <td>{{ $user->so_dien_thoai }}</td> 
                     <td>{{ $user->gioi_tinh == 0 ? 'Nam' : 'Nữ' }}</td>
                     <td>{{ $user->dia_chi }}</td>

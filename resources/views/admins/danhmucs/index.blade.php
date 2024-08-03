@@ -35,6 +35,7 @@
                 <tr>
                   <th>Id</th>
                   <th>Tên danh mục</th>
+                  <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>

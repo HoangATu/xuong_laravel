@@ -37,13 +37,12 @@
                                             Dashboard</a>
                                         <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
                                             Orders</a>
-                                        <a href="#download" data-bs-toggle="tab"><i class="fa fa-cloud-download"></i>
-                                            Download</a>
+                                        
                                         <a href="#payment-method" data-bs-toggle="tab"><i class="fa fa-credit-card"></i>
                                             Payment
                                             Method</a>
                                         <a href="#address-edit" data-bs-toggle="tab"><i class="fa fa-map-marker"></i>
-                                            address</a>
+                                            Address</a>
                                         <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i> Account
                                             Details</a>
                                         <form action="{{route('logout')}}" method="POST">
@@ -82,38 +81,29 @@
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>Order</th>
-                                                                <th>Date</th>
-                                                                <th>Status</th>
-                                                                <th>Total</th>
-                                                                <th>Action</th>
+                                                                <th>Mã đơn hàng</th>
+                                                                <th>Ngày đặt</th>
+                                                                <th>Trạng thái</th>
+                                                                <th>Tổng tiền</th>
+                                                                <th>Hành động</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($donHangs as $item)
+                                        
                                                             <tr>
-                                                                <td>1</td>
-                                                                <td>Aug 22, 2018</td>
-                                                                <td>Pending</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="cart.html" class="btn btn-sqr">View</a>
+                                                                <td>{{$item->ma_don_hang}}</td>
+                                                                <td>{{$item->created_at->format('d-m-Y')}}</td>
+                                                                <td>{{$trangThaiDonHang[$item->trang_thai_don_hang]}}</td>
+                                                                <td>{{number_format($item->tong_tien, 0, '', '.')}} đ</td>
+                                                                <td>
+                                                                    <a href="{{route('order.show', $item->id)}}" class="btn btn-sqr">
+                                                                        View
+                                                                    </a>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>July 22, 2018</td>
-                                                                <td>Approved</td>
-                                                                <td>$200</td>
-                                                                <td><a href="cart.html" class="btn btn-sqr">View</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>June 12, 2017</td>
-                                                                <td>On Hold</td>
-                                                                <td>$990</td>
-                                                                <td><a href="cart.html" class="btn btn-sqr">View</a>
-                                                                </td>
-                                                            </tr>
+                        
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -122,41 +112,7 @@
                                         <!-- Single Tab Content End -->
 
                                         <!-- Single Tab Content Start -->
-                                        <div class="tab-pane fade" id="download" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h5>Downloads</h5>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>Product</th>
-                                                                <th>Date</th>
-                                                                <th>Expire</th>
-                                                                <th>Download</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Haven - Free Real Estate PSD Template</td>
-                                                                <td>Aug 22, 2018</td>
-                                                                <td>Yes</td>
-                                                                <td><a href="#" class="btn btn-sqr"><i
-                                                                    class="fa fa-cloud-download"></i>
-                                                                        Download File</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>HasTech - Profolio Business Template</td>
-                                                                <td>Sep 12, 2018</td>
-                                                                <td>Never</td>
-                                                                <td><a href="#" class="btn btn-sqr"><i
-                                                                    class="fa fa-cloud-download"></i>
-                                                                        Download File</a></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                         <!-- Single Tab Content End -->
 
                                         <!-- Single Tab Content Start -->
@@ -173,10 +129,9 @@
                                             <div class="myaccount-content">
                                                 <h5>Billing Address</h5>
                                                 <address>
-                                                    <p><strong>Erik Jhonson</strong></p>
-                                                    <p>1355 Market St, Suite 900 <br>
-                                                        San Francisco, CA 94103</p>
-                                                    <p>Mobile: (123) 456-7890</p>
+                                                    <p><strong>{{ Auth::user()->name }}</strong></p>
+                                                    <p>{{ Auth::user()->dia_chi }}</p>
+                                                    <p>Mobile: {{ Auth::user()->so_dien_thoai }}</p>
                                                 </address>
                                                 <a href="#" class="btn btn-sqr"><i class="fa fa-edit"></i>
                                                     Edit Address</a>
@@ -189,31 +144,33 @@
                                             <div class="myaccount-content">
                                                 <h5>Account Details</h5>
                                                 <div class="account-details-form">
-                                                    <form action="#">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item">
-                                                                    <label for="first-name" class="required">First
-                                                                        Name</label>
-                                                                    <input type="text" id="first-name" placeholder="First Name" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item">
-                                                                    <label for="last-name" class="required">Last
-                                                                        Name</label>
-                                                                    <input type="text" id="last-name" placeholder="Last Name" />
-                                                                </div>
-                                                            </div>
+                                                    <form action="{{route('index.update', Auth::user()->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="single-input-item">
+                                                            <label for="display-name" class="required">Họ và tên</label>
+                                                            <input type="text" id="display-name" name="name" placeholder="Tên của bạn" value="{{ Auth::user()->name }}"/>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="display-name" class="required">Display Name</label>
-                                                            <input type="text" id="display-name" placeholder="Display Name" />
+                                                            <label for="email" class="required">Email</label>
+                                                            <input type="email" id="email" placeholder="Email Address" value="{{ Auth::user()->email }}"/>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="email" class="required">Email Addres</label>
-                                                            <input type="email" id="email" placeholder="Email Address" />
+                                                            <label for="email" class="required">Số điện thoại</label>
+                                                            <input type="number" id="email" name="so_dien_thoai" placeholder="Số điện thoại" value="{{ Auth::user()->so_dien_thoai }}" />
                                                         </div>
+                                                        <div class="single-input-item">
+                                                            <label for="" class="required">Địa chỉ</label>
+                                                            <input type="text"  name="dia_chi" placeholder="Địa chỉ ..." value="{{ Auth::user()->dia_chi }}"/>
+                                                        </div>
+                                                        <div class="single-input-item">
+                                                            <label for="" class="required">Ngày sinh</label>
+                                                            <input type="date" id="" name="ngay_sinh" placeholder="Địa chỉ ..." value="{{ Auth::user()->ngay_sinh }}"/>
+                                                        </div>
+                                                        <div class="single-input-item">
+                                                            <button class="btn btn-sqr">Save Changes</button>
+                                                        </div>
+                                                    </form>
                                                         <fieldset>
                                                             <legend>Password change</legend>
                                                             <div class="single-input-item">
@@ -238,10 +195,7 @@
                                                                 </div>
                                                             </div>
                                                         </fieldset>
-                                                        <div class="single-input-item">
-                                                            <button class="btn btn-sqr">Save Changes</button>
-                                                        </div>
-                                                    </form>
+                                                        
                                                 </div>
                                             </div>
                                         </div> <!-- Single Tab Content End -->

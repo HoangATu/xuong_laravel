@@ -28,7 +28,7 @@
 
               <li class="menu-title">Quản trị</li>
               <li>
-                  <a class='tp-link' href='/dashboard'>
+                  <a class='tp-link' href='/thongke'>
                   <i data-feather="home"></i>
                       <span> Dashboard </span>
                   </a>
@@ -63,18 +63,20 @@
               </li>
 
               <li>
-                <a class='tp-link' href='/binhluan'>
-                <i data-feather="package"></i>
-                    <span> Bình luận </span>
+                <a class='tp-link' href='/donhang'>
+                <i data-feather="shopping-bag"></i>
+                    <span> Đơn hàng </span>
                 </a>
             </li>
 
-            <li>
+              
+
+            {{-- <li>
               <a class='tp-link' href='/phuongthuc'>
               <i data-feather="package"></i>
                   <span> Phương thức thanh toán </span>
               </a>
-          </li>
+          </li> --}}
 
              
 

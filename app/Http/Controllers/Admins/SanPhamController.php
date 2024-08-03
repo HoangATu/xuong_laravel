@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Models\DanhMuc;
-use App\Models\HinhAnhSanPham;
 use App\Models\SanPham;
+use App\Models\BinhLuan;
 use Illuminate\Http\Request;
+use App\Models\HinhAnhSanPham;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,12 +40,12 @@ class SanPhamController extends Controller
         $listSanPham = SanPham::query()->when($search, function($query, $search){
             return $query->where('ma_san_pham', 'like', "%{$search}%")
                          ->orwhere('ten_san_pham', 'like', "%{$search}%");
-        })->orderBy('id')->paginate(5);
+        })->orderBy('id')->paginate(5); 
         $title = "Danh sách sản phẩm";
         return view('admins.sanphams.index', compact('title', 'listSanPham'));
 
        
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -104,7 +105,10 @@ class SanPhamController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sanPham = SanPham::findOrFail($id);
+        $category = DanhMuc::all();
+        $binhLuan = SanPham::with('binhLuans.taiKhoan')->findOrFail($id);
+        return view('admins.sanphams.show', compact('sanPham', 'category', 'binhLuan'));
     }
 
     /**
@@ -209,6 +213,7 @@ class SanPhamController extends Controller
     {
 
         if($request->isMethod('DELETE')){
+            
             $sanPham = SanPham::findOrFail($id);
             if($sanPham->hinh_anh && Storage::disk('public')->exitsts($sanPham->hinh_anh)){
                 Storage::disk('public')->delete($sanPham->hinh_anh);
@@ -224,8 +229,12 @@ class SanPhamController extends Controller
     }
 
     // Viết một phương thức mới
-    public function test(){
-        dd("đây là một hàm mới");
+    public function destroyComment($id)
+    {
+        $binhLuan = BinhLuan::findOrFail($id);
+        $binhLuan->delete();
+    
+        return redirect()->back()->with('success', 'Bình luận đã được xóa thành công.');
     }
 }
  

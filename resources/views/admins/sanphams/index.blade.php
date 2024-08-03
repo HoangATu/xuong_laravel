@@ -15,7 +15,7 @@
 
 @section('content')
 
-
+  
     <div class="d-flex justify-content-center container"  >
         <div id="description" class="tab-content active mt-4 container">
             <h1 class="d-flex justify-content-center">{{$title}}</h1>
@@ -46,12 +46,10 @@
                   <th>Mã Sản Phẩm</th>
                   <th>Tên Sản Phẩm</th>
                   <th>Ảnh Sản Phẩm</th>
-                  <th>Giá Phẩm</th>
-                  <th>GiáKhuyến Mãi</th>
-                  <th>Số Lượng</th>
+                  <th>Giá Sản Phẩm</th>
                   
                   <th>Danh Mục</th>
-                  <th>Trạng thái</th>
+                  
                   <th>Hoạt động</th>
                 </tr>
               </thead>
@@ -67,11 +65,9 @@
                       <img src="{{Storage::url($item->hinh_anh)}}" width="100px">
                     </td>
                     <td>{{number_format($item->gia)}}</td>
-                    <td>{{empty($item->gia_khuyen_mai) ? 0 : $item->gia_khuyen_mai}}</td>
-                    <td>{{$item->so_luong}}</td>
+                    
                     
                     <td>{{$item->danh_muc_id == 1 ? 'Áo Thun' : 'Quần Jeeans'}}</td>
-                    <td>{{$item->trang_thai == 1 ? 'Hiển thị' : 'Ẩn' }}</td>
                     <td>
                       <a href="{{ route('sanpham.edit', $item->id) }}"><button class="btn btn-warning">Sửa</button></a>
                       <form class="d-inline" action="{{ route('sanpham.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có đỒng ý xoá không?')">
@@ -79,20 +75,21 @@
                           @method('DELETE')
                           <button class="btn btn-danger">Xoá</button>
                       </form>
+                      <a href="{{ route('sanpham.show', $item->id) }}"><button class="btn btn-warning">Chi tiết</button></a>
                     </td>
-                  </tr>
+                  </tr> 
                 
                 @endforeach
               </tbody>
             </table>
-            {{$listSanPham->links('pagination::bootstrap-5')}};
+            {{$listSanPham->links('pagination::bootstrap-5')}}
           
         </div>
 
 
         
 
-
+ 
        
     </div>
 </div>
