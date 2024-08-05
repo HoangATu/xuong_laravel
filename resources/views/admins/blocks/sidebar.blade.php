@@ -69,6 +69,12 @@
                 </a>
             </li>
 
+            <li>
+                <a class='tp-link' href='/giamgia'>
+                <i data-feather="shopping-bag"></i>
+                    <span> Mã Giảm Giá </span>
+                </a>
+            </li>
               
 
             {{-- <li>

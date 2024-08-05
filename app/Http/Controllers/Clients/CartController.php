@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Clients;
 
+use Carbon\Carbon;
 use App\Models\SanPham;
+use App\Models\GiamGias;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,19 +12,24 @@ class CartController extends Controller
 {
     public function listCart()
     {
-        // session()->put('cart', []);
         $cart = session()->get('cart', []);
         $total = 0;
-        $subToTal = 0;  
+        $subTotal = 0;
 
         foreach ($cart as $item){
-            $subToTal += $item['gia'] * $item['so_luong'];
+            $subTotal += $item['gia'] * $item['so_luong'];
         }
 
         $shipping = 30000;
 
-        $total = $subToTal + $shipping;
-        return view('clients.cart', compact('cart', 'subToTal', 'shipping', 'total'));
+        $discount = 0;
+        if (session()->has('coupon')) {
+            $discount = session('coupon')->discount_amount;
+        }
+
+        $total = $subTotal + $shipping - $discount;
+
+        return view('clients.cart', compact('cart', 'subTotal', 'shipping', 'discount', 'total'));
     }
 
     public function addCart(Request $request){
@@ -34,10 +41,10 @@ class CartController extends Controller
         // Khởi tạo một mảng chứa thông tin giỏ hàng trên session
         $cart = session()->get('cart', []);
     
-        if(isset($cart[$productId])){
+        if (isset($cart[$productId])) {
             // Sản phẩm đã tồn tại trong giỏ hàng
             $cart[$productId]['so_luong'] += $quantity;
-        }else{
+        } else {
             // Sản phẩm chưa tồn tại trong giỏ hàng
             $cart[$productId] = [
                 'ten_san_pham' => $sanPham->ten_san_pham,
@@ -57,4 +64,23 @@ class CartController extends Controller
         session()->put('cart', $cartNew);
         return redirect()->back();
     }
+
+    public function applyCoupon(Request $request){
+       
+            $request->validate([
+                'coupon_code' => 'required|string|exists:giam_gias,code'
+            ]);
+        
+            $couponCode = $request->input('coupon_code');
+            $coupon = GiamGias::where('code', $couponCode)->first();
+        
+            if ($coupon) {
+                session()->put('coupon_code', $couponCode);
+                session()->put('coupon', $coupon);
+                return redirect()->route('cart.list')->with('success', 'Mã giảm giá đã được áp dụng!');
+            } else {
+                return redirect()->route('cart.list')->with('error', 'Mã giảm giá không hợp lệ!');
+            }
+    }
+        
 }

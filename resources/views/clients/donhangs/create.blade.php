@@ -113,26 +113,37 @@
                                         <tr>
                                             <td>Sub Total</td>
                                             <td>
-                                                <strong>{{number_format($subTotal, 0, '', '.')}} đ</strong>
-                                                <input type="hidden" name="tien_hang" value="{{$subTotal}}">
+                                                <strong>{{ number_format($subTotal, 0, '', '.') }} đ</strong>
+                                                <input type="hidden" name="tien_hang" value="{{ $subTotal }}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Shipping</td>
                                             <td>
-                                                <strong>{{number_format($shipping, 0, '', '.')}} đ</strong>
-                                                <input type="hidden" name="tien_ship" value="{{$shipping}}">
+                                                <strong>{{ number_format($shipping, 0, '', '.') }} đ</strong>
+                                                <input type="hidden" name="tien_ship" value="{{ $shipping }}">
                                             </td>
-
+                                        </tr>
+                                        <tr>
+                                            <td>Discount</td>
+                                            <td>
+                                                <strong id="discount-amount">
+                                                    {{ number_format($discountAmount, 0, '', '.') }} đ
+                                                </strong>
+                                                <input type="hidden" name="" value="{{ $discountAmount }}">
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Total Amount</td>
                                             <td>
-                                                <b>{{number_format($total, 0, '', '.')}} đ</b>
-                                                <input type="hidden" name="tong_tien" value="{{$total}}">
+                                                <b id="total-amount">
+                                                    {{ number_format($total, 0, '', '.') }} đ
+                                                </b>
+                                                <input type="hidden" name="tong_tien" value="{{ $total }}">
                                             </td>
                                         </tr>
                                     </tfoot>
+                                    
                                 </table>
                             </div>
                             <!-- Order Payment Method -->
